@@ -51,14 +51,14 @@ csa(gpm_nl$prcp, stat = "skew", std = F, log_x = F, log_y = F, smooth = T)
 
 gpm_skew <- csa(gpm_nl$prcp, stat = "skew", std = F, log_x = F, log_y = F, smooth = T, plot = F)
 rdr_skew <- csa(rdr_nl$prcp, stat = "skew", std = F, log_x = F, log_y = F, smooth = T, plot = F)
-csa_multiplot(rbind(data.frame(gpm_skew, dataset = "gpm"), data.frame(rdr_skew, dataset = "rdr")), log_x = F, log_y = F, smooth = T)
+csa.multiplot(rbind(data.frame(gpm_skew, dataset = "gpm"), data.frame(rdr_skew, dataset = "rdr")), log_x = F, log_y = F, smooth = T)
 
 set_1 <- data.frame(csa(gpm_nl$prcp, plot = F, fast = T), dataset = "gpm")
 set_2 <- data.frame(csa(rdr_nl$prcp, plot = F, fast = T), dataset = "radar")
 set_3 <- data.frame(csa(knmi_nl$prcp, plot = F, fast = T), dataset = "station")
 set_4 <- data.frame(csa(ncep_nl$prcp, plot = F, fast = T), dataset = "ncep")
 set_5 <- data.frame(csa(cnrm_nl$prcp, plot = F, fast = T), dataset = "cnrm")
-csa_multiplot(rbind(set_1, set_2, set_3, set_4, set_5))
+csa.multiplot(rbind(set_1, set_2, set_3, set_4, set_5))
 
 }
 \references{
