@@ -2,7 +2,7 @@
 #'
 #' The function \code{csa} computes (and by default plots) the aggregation curve of a given statistic in a single dimension, e.g., time.
 #'
-#' @param x A numeric vector
+#' @param x A numeric vector.
 #' @param stat The statistic which will be estimated across the cross-scale continuum. Suitable options are:
 #' \itemize{
 #' \item{"var" for variance,}
@@ -16,9 +16,9 @@
 #' }
 #' @param std logical. If TRUE (the default) the CSA plot is standardized to unit, i.e., zero mean and unit variance in the original time scale.
 #' @param threshold numeric. Sample size of the time series at the last aggregated scale.
-#' @param plot logical. If TRUE (the default) the CSA plot is printed
+#' @param plot logical. If TRUE (the default) the CSA plot is printed.
 #' @param fast logical. If TRUE the CSA plot is estimated only in logarithmic scale; 1, 2, 3, ... , 10, 20, 30, ... , 100, 200, 300 etc.
-#' @param ... log_x and log_y (default TRUE) for setting the axes of the CSA plot to logarithmic scale. The argument wn (default FALSE) is used to plot a line presenting the standardized variance of the white noise process. Therefore, it should be used only with stat = "var" and std = T.}
+#' @param ... log_x and log_y (default TRUE) for setting the axes of the CSA plot to logarithmic scale. The argument wn (default FALSE) is used to plot a line presenting the standardized variance of the white noise process. Therefore, it should be used only with stat = "var" and std = T.
 #'
 #' @return
 #' If \code{plot = TRUE}, the \code{csa} returns a list containing:
@@ -46,6 +46,8 @@
 #' set_4 <- data.frame(csa(ncep_nl$prcp, plot = F, fast = T), dataset = "ncep")
 #' set_5 <- data.frame(csa(cnrm_nl$prcp, plot = F, fast = T), dataset = "cnrm")
 #' csa_multiplot(rbind(set_1, set_2, set_3, set_4, set_5))
+#'
+#' @references Markonis et al., A cross-scale analysis framework for model/data comparison and integration, Geoscientific Model Development, Submitted.
 
 csa  <- function(x, stat = "var", std = T, threshold = 30, plot = T, fast = F, ...) {
   if (!is.numeric(x)) stop ("x should be numeric.")
@@ -126,7 +128,7 @@ csa  <- function(x, stat = "var", std = T, threshold = 30, plot = T, fast = F, .
 #' @param threshold numeric. Sample size of the time series at the last aggregated scale.
 #' @param plot logical. If TRUE (the default) the CSA plot is printed
 #' @param fast logical. If TRUE the CSA plot is estimated only in logarithmic scale; 1, 2, 3, ... , 10, 20, 30, ... , 100, 200, 300 etc.
-#' @param ... log_x and log_y (default TRUE) for setting the axes of the CSA  plot to logarithmic scale. The argument wn (default FALSE) is used to plot a line presenting the standardized variance of the white noise process. Therefore, it should be used only with stat = "var" and std = T.}
+#' @param ... log_x and log_y (default TRUE) for setting the axes of the CSA  plot to logarithmic scale. The argument wn (default FALSE) is used to plot a line presenting the standardized variance of the white noise process. Therefore, it should be used only with stat = "var" and std = T.
 #'
 #' @return
 #' If \code{plot = TRUE}, the \code{csa} returns a list containing:
@@ -148,6 +150,9 @@ csa  <- function(x, stat = "var", std = T, threshold = 30, plot = T, fast = F, .
 #' gpm_sp_scale <- csas(gpm_events_brick, plot = F)
 #' gpm_sp_scale[, variable := factor(variable, labels = event_dates)]
 #' csa.multiplot(gpm_sp_scale, smooth = T, log_x = F, log_y = F)
+#'
+#' @references Markonis et al., A cross-scale analysis framework for model/data comparison and integration, Geoscientific Model Development, Submitted.
+
 
 csas <- function(x, stat = "var", std = T, plot = T, threshold = 30, ...){
   '%!in%' <- function(x, y)!('%in%'(x, y)) # keep function inside for the 'parallel' package

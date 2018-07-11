@@ -21,16 +21,18 @@ csas(x, stat = "var", std = T, plot = T, threshold = 30, ...)
 \item{"t4" for L-kurtosis.}
 }}
 
-\item{std}{logical. If TRUE (the default) the scalegram is standardized to unit, i.e., zero mean and unit variance in the original time scale.}
+\item{std}{logical. If TRUE (the default) the CSA plot is standardized to unit, i.e., zero mean and unit variance in the original time scale.}
 
-\item{plot}{logical. If TRUE (the default) the scalegram is plotted.}
+\item{plot}{logical. If TRUE (the default) the CSA plot is printed}
 
 \item{threshold}{numeric. Sample size of the time series at the last aggregated scale.}
 
-\item{fast}{logical. If TRUE the scalegram is estimated only in logarithmic scale; 1, 2, 3, ... , 10, 20, 30, ... , 100, 200, 300 etc.}
+\item{...}{log_x and log_y (default TRUE) for setting the axes of the CSA  plot to logarithmic scale. The argument wn (default FALSE) is used to plot a line presenting the standardized variance of the white noise process. Therefore, it should be used only with stat = "var" and std = T.}
+
+\item{fast}{logical. If TRUE the CSA plot is estimated only in logarithmic scale; 1, 2, 3, ... , 10, 20, 30, ... , 100, 200, 300 etc.}
 }
 \value{
-If \code{plot = TRUE}, the \code{scalegram} returns a list containing:
+If \code{plot = TRUE}, the \code{csa} returns a list containing:
  \itemize{
  \item{\code{values}: Matrix of the timeseries values for the selected \code{stat} at each \code{scale}.}
  \item{\code{plot}: Plot of \code{scale} versus \code{stat} as a \emph{ggplot} object.}
@@ -48,7 +50,11 @@ plot(gpm_events_brick, col = rev(colorspace::sequential_hcl(40)),
      main = event_dates)
 csas(gpm_events_brick)
 
-gpm_sp_scale <- scalegram_space(gpm_events_brick, plot = F)
+gpm_sp_scale <- csas(gpm_events_brick, plot = F)
 gpm_sp_scale[, variable := factor(variable, labels = event_dates)]
 csa.multiplot(gpm_sp_scale, smooth = T, log_x = F, log_y = F)
+
+}
+\references{
+Markonis et al., A cross-scale analysis framework for model/data comparison and integration, Geoscientific Model Development, Submitted.
 }

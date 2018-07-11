@@ -7,7 +7,7 @@
 csa(x, stat = "var", std = T, threshold = 30, plot = T, fast = F, ...)
 }
 \arguments{
-\item{x}{A numeric vector}
+\item{x}{A numeric vector.}
 
 \item{stat}{The statistic which will be estimated across the cross-scale continuum. Suitable options are:
 \itemize{
@@ -21,16 +21,18 @@ csa(x, stat = "var", std = T, threshold = 30, plot = T, fast = F, ...)
 \item{"t4" for L-kurtosis.}
 }}
 
-\item{std}{logical. If TRUE (the default) the scalegram is standardized to unit, i.e., zero mean and unit variance in the original time scale.}
+\item{std}{logical. If TRUE (the default) the CSA plot is standardized to unit, i.e., zero mean and unit variance in the original time scale.}
 
 \item{threshold}{numeric. Sample size of the time series at the last aggregated scale.}
 
-\item{plot}{logical. If TRUE (the default) the scalegram is plotted.}
+\item{plot}{logical. If TRUE (the default) the CSA plot is printed.}
 
-\item{fast}{logical. If TRUE the scalegram is estimated only in logarithmic scale; 1, 2, 3, ... , 10, 20, 30, ... , 100, 200, 300 etc.}
+\item{fast}{logical. If TRUE the CSA plot is estimated only in logarithmic scale; 1, 2, 3, ... , 10, 20, 30, ... , 100, 200, 300 etc.}
+
+\item{...}{log_x and log_y (default TRUE) for setting the axes of the CSA plot to logarithmic scale. The argument wn (default FALSE) is used to plot a line presenting the standardized variance of the white noise process. Therefore, it should be used only with stat = "var" and std = T.}
 }
 \value{
-If \code{plot = TRUE}, the \code{scalegram} returns a list containing:
+If \code{plot = TRUE}, the \code{csa} returns a list containing:
  \itemize{
  \item{\code{values}: Matrix of the timeseries values for the selected \code{stat} at each \code{scale}.}
  \item{\code{plot}: Plot of \code{scale} versus \code{stat} as a \emph{ggplot} object.}
@@ -41,20 +43,24 @@ If \code{plot = TRUE}, the \code{scalegram} returns a list containing:
 The function \code{csa} computes (and by default plots) the aggregation curve of a given statistic in a single dimension, e.g., time.
 }
 \examples{
-scalegram(rnorm(1000), wn = T)
+csa(rnorm(1000), wn = T)
 data(gpm_nl, knmi_nl, rdr_nl, ncep_nl, cnrm_nl, gpm_events)
-scalegram(knmi_nl$prcp, threshold = 10, fast = T)
+csa(knmi_nl$prcp, threshold = 10, fast = T)
 
-scalegram(gpm_nl$prcp, stat = "skew", std = F, log_x = F, log_y = F, smooth = T)
+csa(gpm_nl$prcp, stat = "skew", std = F, log_x = F, log_y = F, smooth = T)
 
-gpm_skew <- scalegram(gpm_nl$prcp, stat = "skew", std = F, log_x = F, log_y = F, smooth = T, plot = F)
-rdr_skew <- scalegram(rdr_nl$prcp, stat = "skew", std = F, log_x = F, log_y = F, smooth = T, plot = F)
-scalegram_multiplot(rbind(data.frame(gpm_skew, dataset = "gpm"), data.frame(rdr_skew, dataset = "rdr")), log_x = F, log_y = F, smooth = T)
+gpm_skew <- csa(gpm_nl$prcp, stat = "skew", std = F, log_x = F, log_y = F, smooth = T, plot = F)
+rdr_skew <- csa(rdr_nl$prcp, stat = "skew", std = F, log_x = F, log_y = F, smooth = T, plot = F)
+csa_multiplot(rbind(data.frame(gpm_skew, dataset = "gpm"), data.frame(rdr_skew, dataset = "rdr")), log_x = F, log_y = F, smooth = T)
 
-set_1 <- data.frame(scalegram(gpm_nl$prcp, plot = F, fast = T), dataset = "gpm")
-set_2 <- data.frame(scalegram(rdr_nl$prcp, plot = F, fast = T), dataset = "radar")
-set_3 <- data.frame(scalegram(knmi_nl$prcp, plot = F, fast = T), dataset = "station")
-set_4 <- data.frame(scalegram(ncep_nl$prcp, plot = F, fast = T), dataset = "ncep")
-set_5 <- data.frame(scalegram(cnrm_nl$prcp, plot = F, fast = T), dataset = "cnrm")
-scalegram_multiplot(rbind(set_1, set_2, set_3, set_4, set_5))
+set_1 <- data.frame(csa(gpm_nl$prcp, plot = F, fast = T), dataset = "gpm")
+set_2 <- data.frame(csa(rdr_nl$prcp, plot = F, fast = T), dataset = "radar")
+set_3 <- data.frame(csa(knmi_nl$prcp, plot = F, fast = T), dataset = "station")
+set_4 <- data.frame(csa(ncep_nl$prcp, plot = F, fast = T), dataset = "ncep")
+set_5 <- data.frame(csa(cnrm_nl$prcp, plot = F, fast = T), dataset = "cnrm")
+csa_multiplot(rbind(set_1, set_2, set_3, set_4, set_5))
+
+}
+\references{
+Markonis et al., A cross-scale analysis framework for model/data comparison and integration, Geoscientific Model Development, Submitted.
 }

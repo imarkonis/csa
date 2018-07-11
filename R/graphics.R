@@ -1,4 +1,23 @@
+#' CSA curve plotting
+#'
+#' Function for plotting single CSA curves.
+#'
+#' @param x A matrix or data.frame composed of two columns;
+#' scale for the temporal or spatial scale and value for the estimate of a given statistic (e.g., variance) at the given aggregated scale.
+#' @param log_x logical. If TRUE (the default) the x axis of the CSA plot is set to the logarithmic scale.
+#' @param log_y logical. If TRUE (the default) the y axis of the CSA plot is set to the logarithmic scale.
+#' @param smooth logical. If TRUE (the default) the aggregation curves are smoothed (loess function).
+#' @param wn logical. The argument wn (default FALSE) is used to plot a line presenting the standardized variance of the white noise process.
+#' Therefore, it should be used only with stat = "var" and std = T in the csa/csas functions.
+#'
+#' @return The CSA plot as a ggplot object.
+#'
 #' @export
+#' @examples
+#' aa <- rnorm(1000)
+#' csa_aa <- csa(aa, plot = F)
+#' csa.plot(csa_aa)
+
 csa.plot <- function(x, log_x = T, log_y = T, smooth = F, wn = F){
   colnames(x) <- c("scale", "Value")
   df <- as.data.frame(x)
@@ -41,7 +60,30 @@ csa.plot <- function(x, log_x = T, log_y = T, smooth = F, wn = F){
   gppp
 }
 
+#' Mulitiple CSA plotting
+#'
+#' Function for plotting multiple CSA curves in a single plot.
+#'
+#' @param x A matrix or data.frame composed of three columns;
+#' scale for the temporal or spatial scale; value for the estimate of a given statistic (e.g., variance) at the given aggregated scale and
+#' variable for defining the corresponding dataset.
+#' @param log_x logical. If TRUE (the default) the x axis of the CSA plot is set to the logarithmic scale.
+#' @param log_y logical. If TRUE (the default) the y axis of the CSA plot is set to the logarithmic scale.
+#' @param smooth logical. If TRUE (the default) the aggregation curves are smoothed (loess function).
+#' @param wn logical. The argument wn (default FALSE) is used to plot a line presenting the standardized variance of the white noise process.
+#' Therefore, it should be used only with stat = "var" and std = T in the csa/csas functions.
+#'
+#' @return The CSA plot as a ggplot object.
+#'
 #' @export
+#' @examples
+#' aa <- rnorm(1000)
+#' csa_aa <- data.frame(csa(aa, plot = F), variable = 'wn')
+#' bb <- as.numeric(arima.sim(n = 1000, list(ar = c(0.8897, -0.4858), ma = c(-0.2279, 0.2488))))
+#' csa_bb <- data.frame(csa(bb, plot = F), variable = 'arma(2, 2)')
+#' csa.multiplot(rbind(csa_aa, csa_bb), wn = T)
+#' csa.multiplot(rbind(csa_aa, csa_bb), wn = T, smooth = T)
+
 csa.multiplot <- function(df, log_x = T, log_y = T, wn = F, smooth = F){
   colnames(df) <- c("scale", "value", "variable")
   df <- as.data.frame(df)
