@@ -53,8 +53,8 @@ csa  <- function(x, stat = "var", std = T, threshold = 30, plot = T, fast = F, .
   if (!is.numeric(x)) stop ("x should be numeric.")
   if (!is.vector(x)) stop ("x should be vector.")
   '%!in%' <- function(x, y)!('%in%'(x, y)) # keep function inside for the 'parallel' package
-  if (stat %!in% c("mean", "sd", "var", "skew", "kurt", "cv", "l2", "t2", "t3", "t4"))
-    stop("Error: Invalid stat. Select one of mean, sd, var, skew, kurt, cv, l2, t2, t3, t4.")
+  if (stat %!in% c("sd", "var", "skew", "kurt", "cv", "l2", "t2", "t3", "t4"))
+    stop("Error: Invalid stat. Select one of sd, var, skew, kurt, cv, l2, t2, t3, t4.")
 
   out <- vector()
   nna <- sum(!is.na(x)) # actual length without accounting for missing values
@@ -153,11 +153,10 @@ csa  <- function(x, stat = "var", std = T, threshold = 30, plot = T, fast = F, .
 #'
 #' @references Markonis et al., A cross-scale analysis framework for model/data comparison and integration, Geoscientific Model Development, Submitted.
 
-
 csas <- function(x, stat = "var", std = T, plot = T, threshold = 30, ...){
   '%!in%' <- function(x, y)!('%in%'(x, y)) # keep function inside for the 'parallel' package
-  if (stat %!in% c("mean", "sd", "var", "skew", "kurt", "cv", "l2", "t2", "t3", "t4"))
-    stop("Error: Invalid stat. Select one of mean, sd, var, skew, kurt, cv, l2, t2, t3, t4.")
+  if (stat %!in% c("sd", "var", "skew", "kurt", "cv", "l2", "t2", "t3", "t4"))
+    stop("Error: Invalid stat. Select one of sd, var, skew, kurt, cv, l2, t2, t3, t4.")
 
   ncells <- x@ncols * x@nrows
   max_agg_scale <- round(sqrt(ncells / threshold), 0) # aggregation scale up to sample size of 30 values does not count NAs
