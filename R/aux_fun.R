@@ -8,7 +8,6 @@
 #' @return \code{dt} as a brick object.
 #' @export
 #' @examples
-#'
 #'aa <- expand.grid(lat = seq(40, 50, 1),
 #'                  lon = seq(20, 30, 1),
 #'                  time = seq(1900, 2000, 1))

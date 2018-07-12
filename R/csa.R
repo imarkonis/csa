@@ -19,7 +19,6 @@
 #' @param plot logical. If TRUE (the default) the CSA plot is printed.
 #' @param fast logical. If TRUE the CSA plot is estimated only in logarithmic scale; 1, 2, 3, ... , 10, 20, 30, ... , 100, 200, 300 etc.
 #' @param ... log_x and log_y (default TRUE) for setting the axes of the CSA plot to logarithmic scale. The argument wn (default FALSE) is used to plot a line presenting the standardized variance of the white noise process. Therefore, it should be used only with stat = "var" and std = T.
-#'
 #' @return
 #' If \code{plot = TRUE}, the \code{csa} returns a list containing:
 #'  \itemize{
@@ -27,7 +26,6 @@
 #'  \item{\code{plot}: Plot of \code{scale} versus \code{stat} as a \emph{ggplot} object.}
 #'  }
 #'  If \code{plot = FALSE}, then it returns only the matrix of the timeseries values for the selected \code{stat} at each \code{scale}.
-#'
 #' @export
 #' @examples
 #' csa(rnorm(1000), wn = T)
@@ -46,7 +44,6 @@
 #' set_4 <- data.frame(csa(ncep_nl$prcp, plot = F, fast = T), dataset = "ncep")
 #' set_5 <- data.frame(csa(cnrm_nl$prcp, plot = F, fast = T), dataset = "cnrm")
 #' csa.multiplot(rbind(set_1, set_2, set_3, set_4, set_5))
-#'
 #' @references Markonis et al., A cross-scale analysis framework for model/data comparison and integration, Geoscientific Model Development, Submitted.
 
 csa  <- function(x, stat = "var", std = T, threshold = 30, plot = T, fast = F, ...) {

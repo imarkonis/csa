@@ -9,9 +9,7 @@
 #' @param smooth logical. If TRUE (the default) the aggregation curves are smoothed (loess function).
 #' @param wn logical. The argument wn (default FALSE) is used to plot a line presenting the standardized variance of the white noise process.
 #' Therefore, it should be used only with stat = "var" and std = T in the csa/csas functions.
-#'
 #' @return The CSA plot as a ggplot object.
-#'
 #' @export
 #' @examples
 #' aa <- rnorm(1000)
@@ -72,9 +70,7 @@ csa.plot <- function(x, log_x = T, log_y = T, smooth = F, wn = F){
 #' @param smooth logical. If TRUE (the default) the aggregation curves are smoothed (loess function).
 #' @param wn logical. The argument wn (default FALSE) is used to plot a line presenting the standardized variance of the white noise process.
 #' Therefore, it should be used only with stat = "var" and std = T in the csa/csas functions.
-#'
 #' @return The CSA plot as a ggplot object.
-#'
 #' @export
 #' @examples
 #' aa <- rnorm(1000)

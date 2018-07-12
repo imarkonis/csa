@@ -59,7 +59,6 @@ set_3 <- data.frame(csa(knmi_nl$prcp, plot = F, fast = T), dataset = "station")
 set_4 <- data.frame(csa(ncep_nl$prcp, plot = F, fast = T), dataset = "ncep")
 set_5 <- data.frame(csa(cnrm_nl$prcp, plot = F, fast = T), dataset = "cnrm")
 csa.multiplot(rbind(set_1, set_2, set_3, set_4, set_5))
-
 }
 \references{
 Markonis et al., A cross-scale analysis framework for model/data comparison and integration, Geoscientific Model Development, Submitted.
