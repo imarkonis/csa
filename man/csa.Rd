@@ -4,7 +4,8 @@
 \alias{csa}
 \title{Estimate and print the temporal CSA plot}
 \usage{
-csa(x, stat = "var", std = T, threshold = 30, plot = T, fast = F, ...)
+csa(x, stat = "var", std = T, threshold = 30, plot = T, fast = F,
+  ...)
 }
 \arguments{
 \item{x}{A numeric vector.}
