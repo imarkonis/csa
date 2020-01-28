@@ -9,9 +9,11 @@ Authors@R: c(
   )
 Description: What the package does (one paragraph).
 Depends: R (>= 3.4.2), ggplot2, data.table, scales, reshape2, moments, Lmoments, foreach, doSNOW, ggpubr, raster 
+Suggests: knitr, rmarkdown
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
 URL: http://github.com/imarkonis/csa
 BugReports: htp://github.com/imarkonis/csa/issues
 RoxygenNote: 6.0.1
+VignetteBuilder: knitr
