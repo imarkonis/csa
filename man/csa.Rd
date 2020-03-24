@@ -4,8 +4,15 @@
 \alias{csa}
 \title{Estimate and print the temporal CSA plot}
 \usage{
-csa(x, stat = "var", std = T, threshold = 30, plot = T, fast = F,
-  ...)
+csa(
+  x,
+  stat = "var",
+  std = TRUE,
+  threshold = 30,
+  plot = TRUE,
+  fast = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{A numeric vector.}
@@ -44,21 +51,24 @@ If \code{plot = TRUE}, the \code{csa} returns a list containing:
 The function \code{csa} computes (and by default plots) the aggregation curve of a given statistic in a single dimension, e.g., time.
 }
 \examples{
-csa(rnorm(1000), wn = T)
+csa(rnorm(1000), wn = TRUE)
 data(gpm_nl, knmi_nl, rdr_nl, ncep_nl, cnrm_nl, gpm_events)
-csa(knmi_nl$prcp, threshold = 10, fast = T)
+csa(knmi_nl$prcp, threshold = 10, fast = TRUE)
 
-csa(gpm_nl$prcp, stat = "skew", std = F, log_x = F, log_y = F, smooth = T)
+csa(gpm_nl$prcp, stat = "skew", std = FALSE, log_x = FALSE, log_y = FALSE, smooth = TRUE)
 
-gpm_skew <- csa(gpm_nl$prcp, stat = "skew", std = F, log_x = F, log_y = F, smooth = T, plot = F)
-rdr_skew <- csa(rdr_nl$prcp, stat = "skew", std = F, log_x = F, log_y = F, smooth = T, plot = F)
-csa.multiplot(rbind(data.frame(gpm_skew, dataset = "gpm"), data.frame(rdr_skew, dataset = "rdr")), log_x = F, log_y = F, smooth = T)
+gpm_skew <- csa(gpm_nl$prcp, stat = "skew", std = FALSE, log_x = FALSE, log_y = FALSE,
+smooth = TRUE, plot = FALSE)
+rdr_skew <- csa(rdr_nl$prcp, stat = "skew", std = FALSE, log_x = FALSE, log_y = FALSE,
+smooth = TRUE, plot = FALSE)
+csa.multiplot(rbind(data.frame(gpm_skew, dataset = "gpm"), data.frame(rdr_skew,
+dataset = "rdr")), log_x = FALSE, log_y = FALSE, smooth = TRUE)
 
-set_1 <- data.frame(csa(gpm_nl$prcp, plot = F, fast = T), dataset = "gpm")
-set_2 <- data.frame(csa(rdr_nl$prcp, plot = F, fast = T), dataset = "radar")
-set_3 <- data.frame(csa(knmi_nl$prcp, plot = F, fast = T), dataset = "station")
-set_4 <- data.frame(csa(ncep_nl$prcp, plot = F, fast = T), dataset = "ncep")
-set_5 <- data.frame(csa(cnrm_nl$prcp, plot = F, fast = T), dataset = "cnrm")
+set_1 <- data.frame(csa(gpm_nl$prcp, plot = FALSE, fast = TRUE), dataset = "gpm")
+set_2 <- data.frame(csa(rdr_nl$prcp, plot = FALSE, fast = TRUE), dataset = "radar")
+set_3 <- data.frame(csa(knmi_nl$prcp, plot = FALSE, fast = TRUE), dataset = "station")
+set_4 <- data.frame(csa(ncep_nl$prcp, plot = FALSE, fast = TRUE), dataset = "ncep")
+set_5 <- data.frame(csa(cnrm_nl$prcp, plot = FALSE, fast = TRUE), dataset = "cnrm")
 csa.multiplot(rbind(set_1, set_2, set_3, set_4, set_5))
 }
 \references{

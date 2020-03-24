@@ -4,7 +4,7 @@
 \alias{csa.plot}
 \title{CSA curve plotting}
 \usage{
-csa.plot(x, log_x = T, log_y = T, smooth = F, wn = F)
+csa.plot(x, log_x = TRUE, log_y = TRUE, smooth = FALSE, wn = FALSE)
 }
 \arguments{
 \item{x}{A matrix or data.frame composed of two columns;
@@ -27,6 +27,6 @@ Function for plotting single CSA curves.
 }
 \examples{
 aa <- rnorm(1000)
-csa_aa <- csa(aa, plot = F)
+csa_aa <- csa(aa, plot = FALSE)
 csa.plot(csa_aa)
 }

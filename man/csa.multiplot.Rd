@@ -4,9 +4,13 @@
 \alias{csa.multiplot}
 \title{Mulitiple CSA plotting}
 \usage{
-csa.multiplot(df, log_x = T, log_y = T, wn = F, smooth = F)
+csa.multiplot(df, log_x = TRUE, log_y = TRUE, wn = FALSE, smooth = FALSE)
 }
 \arguments{
+\item{df}{A matrix or data.frame composed of three columns;
+scale for the temporal or spatial scale; value for the estimate of a given statistic (e.g., variance) at the given aggregated scale and
+variable for defining the corresponding dataset.}
+
 \item{log_x}{logical. If TRUE (the default) the x axis of the CSA plot is set to the logarithmic scale.}
 
 \item{log_y}{logical. If TRUE (the default) the y axis of the CSA plot is set to the logarithmic scale.}
@@ -15,10 +19,6 @@ csa.multiplot(df, log_x = T, log_y = T, wn = F, smooth = F)
 Therefore, it should be used only with stat = "var" and std = T in the csa/csas functions.}
 
 \item{smooth}{logical. If TRUE (the default) the aggregation curves are smoothed (loess function).}
-
-\item{x}{A matrix or data.frame composed of three columns;
-scale for the temporal or spatial scale; value for the estimate of a given statistic (e.g., variance) at the given aggregated scale and
-variable for defining the corresponding dataset.}
 }
 \value{
 The CSA plot as a ggplot object.
@@ -28,9 +28,9 @@ Function for plotting multiple CSA curves in a single plot.
 }
 \examples{
 aa <- rnorm(1000)
-csa_aa <- data.frame(csa(aa, plot = F), variable = 'wn')
+csa_aa <- data.frame(csa(aa, plot = FALSE), variable = 'wn')
 bb <- as.numeric(arima.sim(n = 1000, list(ar = c(0.8897, -0.4858), ma = c(-0.2279, 0.2488))))
-csa_bb <- data.frame(csa(bb, plot = F), variable = 'arma(2, 2)')
-csa.multiplot(rbind(csa_aa, csa_bb), wn = T)
-csa.multiplot(rbind(csa_aa, csa_bb), wn = T, smooth = T)
+csa_bb <- data.frame(csa(bb, plot = FALSE), variable = 'arma(2, 2)')
+csa.multiplot(rbind(csa_aa, csa_bb), wn = TRUE)
+csa.multiplot(rbind(csa_aa, csa_bb), wn = TRUE, smooth = TRUE)
 }
