@@ -127,7 +127,6 @@ csa  <- function(x, stat = "var", std = TRUE, threshold = 30, plot = TRUE, fast 
 #' @param std logical. If TRUE (the default) the CSA plot is standardized to unit, i.e., zero mean and unit variance in the original time scale.
 #' @param threshold numeric. Sample size of the time series at the last aggregated scale.
 #' @param plot logical. If TRUE (the default) the CSA plot is printed
-#' @param fast logical. If TRUE the CSA plot is estimated only in logarithmic scale; 1, 2, 3, ... , 10, 20, 30, ... , 100, 200, 300 etc.
 #' @param ... log_x and log_y (default TRUE) for setting the axes of the CSA  plot to logarithmic scale. The argument wn (default FALSE) is used to plot a line presenting the standardized variance of the white noise process. Therefore, it should be used only with stat = "var" and std = T.
 #'
 #' @return

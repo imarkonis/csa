@@ -3,6 +3,5 @@
 export(csa)
 export(csa.multiplot)
 export(csa.plot)
-export(csa.rescale)
 export(csas)
 export(dt.to.brick)
