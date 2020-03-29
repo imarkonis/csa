@@ -23,27 +23,3 @@ dt.to.brick <- function(dt, var_name) {
   return(out)
 }
 
-#' Changes the scale of an aggregation curve
-#'
-#' The function \code{csa.rescale} needs to be desribed.
-#'
-#' @param csa_coarse
-#' @param csa_fine
-#' @param scale_ratio
-#' @return as a brick object.
-#' @export
-#' @examples
-
-csa.rescale <- function(csa_coarse, csa_fine, scale_ratio){
-  rescale_factor = csa_fine[scale == scale_ratio]$value
-  dummy = csa_coarse
-  dummy$scale = dummy$scale * scale_ratio
-  dummy$value = t(t(dummy$value) * rescale_factor)
-  return(dummy)
-}
-
-aa <- expand.grid(lat = seq(40, 50, 1),
-                      lon = seq(20, 30, 1),
-                      time = seq(1900, 2000, 1))
-aa$anomaly = rnorm(nrow(aa))
-aa <- brick(dt.to.brick(aa, "anomaly"))

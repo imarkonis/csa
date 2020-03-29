@@ -28,8 +28,6 @@ csas(x, stat = "var", std = TRUE, plot = TRUE, threshold = 30, ...)
 \item{threshold}{numeric. Sample size of the time series at the last aggregated scale.}
 
 \item{...}{log_x and log_y (default TRUE) for setting the axes of the CSA  plot to logarithmic scale. The argument wn (default FALSE) is used to plot a line presenting the standardized variance of the white noise process. Therefore, it should be used only with stat = "var" and std = T.}
-
-\item{fast}{logical. If TRUE the CSA plot is estimated only in logarithmic scale; 1, 2, 3, ... , 10, 20, 30, ... , 100, 200, 300 etc.}
 }
 \value{
 If \code{plot = TRUE}, the \code{csa} returns a list containing:
