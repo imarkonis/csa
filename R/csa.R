@@ -28,25 +28,28 @@
 #'  If \code{plot = FALSE}, then it returns only the matrix of the timeseries values for the selected \code{stat} at each \code{scale}.
 #' @export
 #' @examples
-#' csa(rnorm(1000), wn = T)
+#' csa(rnorm(1000), wn = TRUE)
 #' data(gpm_nl, knmi_nl, rdr_nl, ncep_nl, cnrm_nl, gpm_events)
-#' csa(knmi_nl$prcp, threshold = 10, fast = T)
+#' csa(knmi_nl$prcp, threshold = 10, fast = TRUE)
 #'
-#' csa(gpm_nl$prcp, stat = "skew", std = F, log_x = F, log_y = F, smooth = T)
+#' csa(gpm_nl$prcp, stat = "skew", std = FALSE, log_x = FALSE, log_y = FALSE, smooth = TRUE)
 #'
-#' gpm_skew <- csa(gpm_nl$prcp, stat = "skew", std = F, log_x = F, log_y = F, smooth = T, plot = F)
-#' rdr_skew <- csa(rdr_nl$prcp, stat = "skew", std = F, log_x = F, log_y = F, smooth = T, plot = F)
-#' csa.multiplot(rbind(data.frame(gpm_skew, dataset = "gpm"), data.frame(rdr_skew, dataset = "rdr")), log_x = F, log_y = F, smooth = T)
+#' gpm_skew <- csa(gpm_nl$prcp, stat = "skew", std = FALSE, log_x = FALSE, log_y = FALSE,
+#' smooth = TRUE, plot = FALSE)
+#' rdr_skew <- csa(rdr_nl$prcp, stat = "skew", std = FALSE, log_x = FALSE, log_y = FALSE,
+#' smooth = TRUE, plot = FALSE)
+#' csa.multiplot(rbind(data.frame(gpm_skew, dataset = "gpm"), data.frame(rdr_skew,
+#' dataset = "rdr")), log_x = FALSE, log_y = FALSE, smooth = TRUE)
 #'
-#' set_1 <- data.frame(csa(gpm_nl$prcp, plot = F, fast = T), dataset = "gpm")
-#' set_2 <- data.frame(csa(rdr_nl$prcp, plot = F, fast = T), dataset = "radar")
-#' set_3 <- data.frame(csa(knmi_nl$prcp, plot = F, fast = T), dataset = "station")
-#' set_4 <- data.frame(csa(ncep_nl$prcp, plot = F, fast = T), dataset = "ncep")
-#' set_5 <- data.frame(csa(cnrm_nl$prcp, plot = F, fast = T), dataset = "cnrm")
+#' set_1 <- data.frame(csa(gpm_nl$prcp, plot = FALSE, fast = TRUE), dataset = "gpm")
+#' set_2 <- data.frame(csa(rdr_nl$prcp, plot = FALSE, fast = TRUE), dataset = "radar")
+#' set_3 <- data.frame(csa(knmi_nl$prcp, plot = FALSE, fast = TRUE), dataset = "station")
+#' set_4 <- data.frame(csa(ncep_nl$prcp, plot = FALSE, fast = TRUE), dataset = "ncep")
+#' set_5 <- data.frame(csa(cnrm_nl$prcp, plot = FALSE, fast = TRUE), dataset = "cnrm")
 #' csa.multiplot(rbind(set_1, set_2, set_3, set_4, set_5))
 #' @references Markonis et al., A cross-scale analysis framework for model/data comparison and integration, Geoscientific Model Development, Submitted.
 
-csa  <- function(x, stat = "var", std = T, threshold = 30, plot = T, fast = F, ...) {
+csa  <- function(x, stat = "var", std = TRUE, threshold = 30, plot = TRUE, fast = FALSE, ...) {
   if (!is.numeric(x)) stop ("x should be numeric.")
   if (!is.vector(x)) stop ("x should be vector.")
   '%!in%' <- function(x, y)!('%in%'(x, y)) # keep function inside for the 'parallel' package
@@ -57,7 +60,7 @@ csa  <- function(x, stat = "var", std = T, threshold = 30, plot = T, fast = F, .
   nna <- sum(!is.na(x)) # actual length without accounting for missing values
   max_agg_scale <- round(nna / threshold, 0) # aggregation scale up to sample size of 30 values does not count NAs
   timescales <- 1:max_agg_scale
-  if(fast == T){
+  if(fast == TRUE){
     timescales <- c(1:9 %o% 10^(0:30))
     timescales <- timescales[timescales <= max_agg_scale]
   }
@@ -68,23 +71,23 @@ csa  <- function(x, stat = "var", std = T, threshold = 30, plot = T, fast = F, .
   registerDoSNOW(cluster)
 
   if (max_agg_scale != 0 & nna > 2 * threshold){ # check for adequate time series length
-    if (std == T){  # standardize
-      x <- scale(x, center = T, scale = T)
+    if (std == TRUE){  # standardize
+      x <- scale(x, center = TRUE, scale = TRUE)
     }
     out <- foreach (i = timescales, .combine = 'c') %dopar%  {# parallel loop around aggregation scale
-      x_agg <- as.numeric(tapply(x, (seq_along(x) - 1) %/% i, mean, na.rm = T)) # estimate aggregated values for scale i
+      x_agg <- as.numeric(tapply(x, (seq_along(x) - 1) %/% i, mean, na.rm = TRUE)) # estimate aggregated values for scale i
       if (sum(!is.na(x_agg)) > threshold){ # have at least 30 values for the y_scale estimation
         # classic moments ------------------------------------------------------
-        if (stat == "sd"){sd(x_agg, na.rm = T)}
-        else if (stat == "var"){var(x_agg, na.rm = T)}
-        else if (stat == "skew"){skewness(x_agg, na.rm = T)}
-        else if (stat == "kurt"){kurtosis(x_agg, na.rm = T)}
+        if (stat == "sd"){sd(x_agg, na.rm = TRUE)}
+        else if (stat == "var"){var(x_agg, na.rm = TRUE)}
+        else if (stat == "skew"){skewness(x_agg, na.rm = TRUE)}
+        else if (stat == "kurt"){kurtosis(x_agg, na.rm = TRUE)}
         # L-moments ------------------------------------------------------------
-        else if (stat == "l2"){Lmoments(x_agg, rmax = 2, na.rm = T)[, "L2"]}  # stat: L2, L-scale
-        else if (stat == "t2"){out[i, "y_scale"] <- Lmoments(x_agg, rmax = 2, na.rm = T)[, "L2"] /
-          Lmoments(x_agg, rmax = 2, na.rm = T)[, "L1"]}                       # stat: L-moment ratio L2/L1
-        else if (stat == "t3"){Lcoefs(x_agg,rmax = 4, na.rm = T)[, "tau3"]}   # stat: L-moment ratio L3/L2
-        else if (stat == "t4"){Lcoefs(x_agg, rmax = 4, na.rm = T)[, "tau4"]}  # stat: L-moment ratio L4/L3
+        else if (stat == "l2"){Lmoments(x_agg, rmax = 2, na.rm = TRUE)[, "L2"]}  # stat: L2, L-scale
+        else if (stat == "t2"){out[i, "y_scale"] <- Lmoments(x_agg, rmax = 2, na.rm = TRUE)[, "L2"] /
+          Lmoments(x_agg, rmax = 2, na.rm = TRUE)[, "L1"]}                       # stat: L-moment ratio L2/L1
+        else if (stat == "t3"){Lcoefs(x_agg,rmax = 4, na.rm = TRUE)[, "tau3"]}   # stat: L-moment ratio L3/L2
+        else if (stat == "t4"){Lcoefs(x_agg, rmax = 4, na.rm = TRUE)[, "tau4"]}  # stat: L-moment ratio L4/L3
       }
     } # parallel loop around aggregation scale
   } else {
@@ -95,7 +98,7 @@ csa  <- function(x, stat = "var", std = T, threshold = 30, plot = T, fast = F, .
   out <- matrix(c(timescales[1:length(out)], out), ncol = 2)
   colnames(out) = c("scale", stat)
 
-  if (plot == T){
+  if (plot == TRUE){
     plot_sc <- csa.plot(out, ...)
     return(list(values = out,
                 plot = plot_sc))
@@ -144,13 +147,13 @@ csa  <- function(x, stat = "var", std = T, threshold = 30, plot = T, fast = F, .
 #'      main = event_dates)
 #' csas(gpm_events_brick)
 #'
-#' gpm_sp_scale <- csas(gpm_events_brick, plot = F)
+#' gpm_sp_scale <- csas(gpm_events_brick, plot = FALSE)
 #' gpm_sp_scale[, variable := factor(variable, labels = event_dates)]
-#' csa.multiplot(gpm_sp_scale, smooth = T, log_x = F, log_y = F)
+#' csa.multiplot(gpm_sp_scale, smooth = TRUE, log_x = FALSE, log_y = FALSE)
 #'
 #' @references Markonis et al., A cross-scale analysis framework for model/data comparison and integration, Geoscientific Model Development, Submitted.
 
-csas <- function(x, stat = "var", std = T, plot = T, threshold = 30, ...){
+csas <- function(x, stat = "var", std = TRUE, plot = TRUE, threshold = 30, ...){
   '%!in%' <- function(x, y)!('%in%'(x, y)) # keep function inside for the 'parallel' package
   if (stat %!in% c("sd", "var", "skew", "kurt", "cv", "l2", "t2", "t3", "t4"))
     stop("Error: Invalid stat. Select one of sd, var, skew, kurt, cv, l2, t2, t3, t4.")
@@ -175,16 +178,16 @@ csas <- function(x, stat = "var", std = T, plot = T, threshold = 30, ...){
       else{
         x_layer <- x
       }
-      if (std == T){  # standardize
-        x_layer[,] <- scale(x_layer[,], center = T, scale = T)
+      if (std == TRUE){  # standardize
+        x_layer[,] <- scale(x_layer[,], center = TRUE, scale = TRUE)
       }
       for (i in 1:max_agg_scale){
-        x_agg[[i]] <- aggregate(x_layer, na.rm = T, fact = i)
+        x_agg[[i]] <- aggregate(x_layer, na.rm = TRUE, fact = i)
       }
-      if (stat == "sd"){sapply(sapply(x_agg, getValues), sd, na.rm = T)}
-      else if (stat == "var"){sapply(sapply(x_agg, getValues), var, na.rm = T)}
-      else if (stat == "skew"){sapply(sapply(x_agg, getValues), skewness, na.rm = T)}
-      else if (stat == "kurt"){sapply(sapply(x_agg, getValues), mean, na.rm = T)}
+      if (stat == "sd"){sapply(sapply(x_agg, getValues), sd, na.rm = TRUE)}
+      else if (stat == "var"){sapply(sapply(x_agg, getValues), var, na.rm = TRUE)}
+      else if (stat == "skew"){sapply(sapply(x_agg, getValues), skewness, na.rm = TRUE)}
+      else if (stat == "kurt"){sapply(sapply(x_agg, getValues), mean, na.rm = TRUE)}
     } # parallel loop around aggregation scale
 
     out <- data.table(melt(out))
@@ -196,7 +199,7 @@ csas <- function(x, stat = "var", std = T, plot = T, threshold = 30, ...){
   }
   stopCluster(cluster)
 
-  if (plot == T){
+  if (plot == TRUE){
     if(ncol(out) == 2){
       plot_sc <- csa.plot(out, ...)
     }

@@ -4,7 +4,7 @@
 \alias{csas}
 \title{Estimate and print the spatial CSA plot}
 \usage{
-csas(x, stat = "var", std = T, plot = T, threshold = 30, ...)
+csas(x, stat = "var", std = TRUE, plot = TRUE, threshold = 30, ...)
 }
 \arguments{
 \item{x}{A raster or brick object.}
@@ -50,9 +50,9 @@ plot(gpm_events_brick, col = rev(colorspace::sequential_hcl(40)),
      main = event_dates)
 csas(gpm_events_brick)
 
-gpm_sp_scale <- csas(gpm_events_brick, plot = F)
+gpm_sp_scale <- csas(gpm_events_brick, plot = FALSE)
 gpm_sp_scale[, variable := factor(variable, labels = event_dates)]
-csa.multiplot(gpm_sp_scale, smooth = T, log_x = F, log_y = F)
+csa.multiplot(gpm_sp_scale, smooth = TRUE, log_x = FALSE, log_y = FALSE)
 
 }
 \references{
