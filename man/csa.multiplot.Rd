@@ -4,7 +4,8 @@
 \alias{csa.multiplot}
 \title{Mulitiple CSA plotting}
 \usage{
-csa.multiplot(df, log_x = TRUE, log_y = TRUE, wn = FALSE, smooth = FALSE)
+csa.multiplot(df, log_x = TRUE, log_y = TRUE, wn = FALSE,
+  smooth = FALSE)
 }
 \arguments{
 \item{df}{A matrix or data.frame composed of three columns;
