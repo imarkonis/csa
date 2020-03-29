@@ -4,7 +4,7 @@ Version: 0.7
 Authors@R: c(
   person("Yannis", "Markonis", email = "imarkonis@gmail.com", role = c("aut", "cre")),
   person("Christoforos", "Pappas", email = "christoforos.pappas@umontreal.ca", role = c("aut")),
-  person("Mijael", "Vargas", email = "vargas_godoy@fzp.czu.cz", role = c("ctb"))
+  person("Mijael", "Vargas", email = "vargas_godoy@fzp.czu.cz", role = c("ctb")),
   person("Simon", "Papalexiou", email = "simon@uni.edu", role = c("ctb")),
   person("Martin", "Hanel", email = "hanel@fzp.czu.cz", role = c("ctb"))
   )
