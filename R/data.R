@@ -15,7 +15,7 @@
 #' @examples
 #' str(gpm_nl)
 
-"gpm_events"
+"gpm_nl"
 
 #' GPM-IMERG precipitation events over 10 mm/day
 #'
