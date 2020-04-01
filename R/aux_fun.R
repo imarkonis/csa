@@ -8,11 +8,14 @@
 #' @return \code{dt} as a brick object.
 #' @export
 #' @examples
+#'\dontrun{
 #'aa <- expand.grid(lat = seq(40, 50, 1),
 #'                  lon = seq(20, 30, 1),
 #'                  time = seq(1900, 2000, 1))
 #'aa$anomaly = rnorm(nrow(aa))
 #'aa <- brick(dt.to.brick(aa, "anomaly"))
+#'}
+
 
 dt.to.brick <- function(dt, var_name) {
   arr_from_dt <- acast(dt, lat ~ lon ~ time, value.var = var_name, fun.aggregate = mean)

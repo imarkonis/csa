@@ -26,7 +26,9 @@ The CSA plot as a ggplot object.
 Function for plotting single CSA curves.
 }
 \examples{
+\dontrun{
 aa <- rnorm(1000)
 csa_aa <- csa(aa, plot = FALSE)
 csa.plot(csa_aa)
+}
 }

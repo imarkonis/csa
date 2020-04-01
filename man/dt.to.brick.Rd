@@ -19,9 +19,11 @@ and time values as "time".}
 The function \code{dt.to.brick} tranforms a data.table object to brick (raster) format
 }
 \examples{
+\dontrun{
 aa <- expand.grid(lat = seq(40, 50, 1),
                  lon = seq(20, 30, 1),
                  time = seq(1900, 2000, 1))
 aa$anomaly = rnorm(nrow(aa))
 aa <- brick(dt.to.brick(aa, "anomaly"))
+}
 }
