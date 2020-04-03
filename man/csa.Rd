@@ -4,8 +4,15 @@
 \alias{csa}
 \title{Estimate and print the temporal CSA plot}
 \usage{
-csa(x, stat = "var", std = TRUE, threshold = 30, plot = TRUE,
-  fast = FALSE, ...)
+csa(
+  x,
+  stat = "var",
+  std = TRUE,
+  threshold = 30,
+  plot = TRUE,
+  fast = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{A numeric vector.}
@@ -44,6 +51,7 @@ If \code{plot = TRUE}, the \code{csa} returns a list containing:
 The function \code{csa} computes (and by default plots) the aggregation curve of a given statistic in a single dimension, e.g., time.
 }
 \examples{
+\dontrun{
 csa(rnorm(1000), wn = TRUE)
 data(gpm_nl, knmi_nl, rdr_nl, ncep_nl, cnrm_nl, gpm_events)
 csa(knmi_nl$prcp, threshold = 10, fast = TRUE)
@@ -63,6 +71,7 @@ set_3 <- data.frame(csa(knmi_nl$prcp, plot = FALSE, fast = TRUE), dataset = "sta
 set_4 <- data.frame(csa(ncep_nl$prcp, plot = FALSE, fast = TRUE), dataset = "ncep")
 set_5 <- data.frame(csa(cnrm_nl$prcp, plot = FALSE, fast = TRUE), dataset = "cnrm")
 csa.multiplot(rbind(set_1, set_2, set_3, set_4, set_5))
+}
 }
 \references{
 Markonis et al., A cross-scale analysis framework for model/data comparison and integration, Geoscientific Model Development, Submitted.

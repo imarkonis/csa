@@ -2,6 +2,11 @@
 #'
 #' The function \code{csa} computes (and by default plots) the aggregation curve of a given statistic in a single dimension, e.g., time.
 #'
+#' @import ggplot2 data.table scales moments Lmoments foreach doSNOW ggpubr parallel
+#' @importFrom raster aggregate brick flip getValues nlayers raster
+#' @importFrom grDevices colorRampPalette
+#' @importFrom stats sd var
+#' @importFrom reshape2 acast
 #' @param x A numeric vector.
 #' @param stat The statistic which will be estimated across the cross-scale continuum. Suitable options are:
 #' \itemize{
@@ -28,6 +33,7 @@
 #'  If \code{plot = FALSE}, then it returns only the matrix of the timeseries values for the selected \code{stat} at each \code{scale}.
 #' @export
 #' @examples
+#' \dontrun{
 #' csa(rnorm(1000), wn = TRUE)
 #' data(gpm_nl, knmi_nl, rdr_nl, ncep_nl, cnrm_nl, gpm_events)
 #' csa(knmi_nl$prcp, threshold = 10, fast = TRUE)
@@ -47,6 +53,7 @@
 #' set_4 <- data.frame(csa(ncep_nl$prcp, plot = FALSE, fast = TRUE), dataset = "ncep")
 #' set_5 <- data.frame(csa(cnrm_nl$prcp, plot = FALSE, fast = TRUE), dataset = "cnrm")
 #' csa.multiplot(rbind(set_1, set_2, set_3, set_4, set_5))
+#' }
 #' @references Markonis et al., A cross-scale analysis framework for model/data comparison and integration, Geoscientific Model Development, Submitted.
 
 csa  <- function(x, stat = "var", std = TRUE, threshold = 30, plot = TRUE, fast = FALSE, ...) {
@@ -139,6 +146,7 @@ csa  <- function(x, stat = "var", std = TRUE, threshold = 30, plot = TRUE, fast 
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' data(gpm_events)
 #' event_dates <- format(gpm_events[, unique(time)], "%d-%m-%Y")
 #' gpm_events_brick <- dt.to.brick(gpm_events, var_name = "prcp")
@@ -149,7 +157,7 @@ csa  <- function(x, stat = "var", std = TRUE, threshold = 30, plot = TRUE, fast 
 #' gpm_sp_scale <- csas(gpm_events_brick, plot = FALSE)
 #' gpm_sp_scale[, variable := factor(variable, labels = event_dates)]
 #' csa.multiplot(gpm_sp_scale, smooth = TRUE, log_x = FALSE, log_y = FALSE)
-#'
+#' }
 #' @references Markonis et al., A cross-scale analysis framework for model/data comparison and integration, Geoscientific Model Development, Submitted.
 
 csas <- function(x, stat = "var", std = TRUE, plot = TRUE, threshold = 30, ...){
