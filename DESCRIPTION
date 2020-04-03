@@ -17,4 +17,5 @@ URL: http://github.com/imarkonis/csa
 BugReports: http://github.com/imarkonis/csa/issues
 RoxygenNote: 7.0.2
 Suggests: 
-    testthat, colorspace 
+    testthat (>= 2.1.0),
+    colorspace

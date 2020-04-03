@@ -41,6 +41,7 @@ If \code{plot = TRUE}, the \code{csa} returns a list containing:
 The function \code{csa} computes (and by default plots) the aggregation curve of a given statistic in two dimensions, e.g., space.
 }
 \examples{
+\dontrun{
 data(gpm_events)
 event_dates <- format(gpm_events[, unique(time)], "\%d-\%m-\%Y")
 gpm_events_brick <- dt.to.brick(gpm_events, var_name = "prcp")
@@ -51,7 +52,7 @@ csas(gpm_events_brick)
 gpm_sp_scale <- csas(gpm_events_brick, plot = FALSE)
 gpm_sp_scale[, variable := factor(variable, labels = event_dates)]
 csa.multiplot(gpm_sp_scale, smooth = TRUE, log_x = FALSE, log_y = FALSE)
-
+}
 }
 \references{
 Markonis et al., A cross-scale analysis framework for model/data comparison and integration, Geoscientific Model Development, Submitted.
