@@ -1,10 +1,10 @@
-#' Trasnform data.table to brick
+#' Transform data.table to brick
 #'
-#' The function \code{dt.to.brick} tranforms a data.table object to brick (raster) format
+#' The function \code{dt.to.brick} transforms a data.table object to brick (raster) format
 #'
 #' @param dt The data table object to be transformed. It must be in a four-column format, with the coordinate columns named as "lat" & "lon"
 #' and time values as "time".
-#' @param var_name The name (chr) of the column in the data table (\code{dt}) wich holds the values of the variable, e.g., "temperature".
+#' @param var_name The name (chr) of the column in the data table (\code{dt}) which holds the values of the variable, e.g., "temperature".
 #' @return \code{dt} as a brick object.
 #' @export
 #' @examples

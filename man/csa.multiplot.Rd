@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{csa.multiplot}
 \alias{csa.multiplot}
-\title{Mulitiple CSA plotting}
+\title{Multiple CSA plotting}
 \usage{
 csa.multiplot(df, log_x = TRUE, log_y = TRUE, wn = FALSE, smooth = FALSE)
 }
