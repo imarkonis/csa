@@ -58,7 +58,7 @@
 
 #' Station data (KNMI)
 #'
-#' 240 homogenised stations 1951-now.
+#' 240 homogenized stations 1951-now.
 #' 24 h point data for Holland
 #' at daily time step for period 1950-12-31 to 2018-04-29.
 #' Spatial Region: latitude: 50.78, 53.48, longitude: 3.4, 7.11

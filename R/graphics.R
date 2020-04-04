@@ -60,7 +60,7 @@ csa.plot <- function(x, log_x = TRUE, log_y = TRUE, smooth = FALSE, wn = FALSE){
   gppp
 }
 
-#' Mulitiple CSA plotting
+#' Multiple CSA plotting
 #'
 #' Function for plotting multiple CSA curves in a single plot.
 #'
