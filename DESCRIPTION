@@ -8,9 +8,8 @@ Authors@R: c(
   person("Simon", "Papalexiou", email = "simon@uni.edu", role = c("ctb")),
   person("Martin", "Hanel", email = "hanel@fzp.czu.cz", role = c("ctb"))
   )
-Description: What the package does (one paragraph).
-Depends: R (>= 3.4.0)
-Imports: grDevices, stats, ggplot2, data.table, scales, reshape2, moments, Lmoments, foreach, doSNOW, ggpubr, raster, parallel
+Description: Integration of Earth system data from various sources is a challenging task. Except for their qualitative heterogeneity, different data records exist for describing similar Earth system process at different spatiotemporal scales. Data inter-comparison and validation are usually performed at a single spatial or temporal scale, which could hamper the identification of potential discrepancies in other scales. CSA package offers a simple, yet efficient, graphical method for synthesizing and comparing observed and modelled data across a range of spatiotemporal scales. Instead of focusing at specific scales, such as annual means or original grid resolution, we examine how their statistical properties change across spatiotemporal continuum.  
+Depends: R (>= 3.4.0), ggplot2, data.table, scales, reshape2, moments, Lmoments, foreach, doSNOW, ggpubr, raster
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
