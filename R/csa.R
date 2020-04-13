@@ -2,7 +2,7 @@
 #'
 #' The function \code{csa} computes (and by default plots) the aggregation curve of a given statistic in a single dimension, e.g., time.
 #'
-#' @import ggplot2 data.table scales moments Lmoments foreach doSNOW ggpubr parallel
+#' @import ggplot2 data.table scales moments Lmoments foreach ggpubr doParallel parallel
 #' @importFrom raster aggregate brick flip getValues nlayers raster
 #' @importFrom grDevices colorRampPalette
 #' @importFrom stats sd var
@@ -33,7 +33,7 @@
 #'  If \code{plot = FALSE}, then it returns only the matrix of the timeseries values for the selected \code{stat} at each \code{scale}.
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' csa(rnorm(1000), wn = TRUE)
 #' data(gpm_nl, knmi_nl, rdr_nl, ncep_nl, cnrm_nl, gpm_events)
 #' csa(knmi_nl$prcp, threshold = 10, fast = TRUE)
@@ -75,7 +75,7 @@ csa  <- function(x, stat = "var", std = TRUE, threshold = 30, plot = TRUE, fast 
   no_cores <- as.numeric(Sys.getenv('NUMBER_OF_PROCESSORS')) - 1
   if(no_cores < 1 | is.na(no_cores))(no_cores <- 1)
   cluster = makeCluster(no_cores, type = "SOCK")
-  registerDoSNOW(cluster)
+  registerDoParallel(cluster)
 
   if (max_agg_scale != 0 & nna > 2 * threshold){ # check for adequate time series length
     if (std == TRUE){  # standardize
@@ -146,7 +146,7 @@ csa  <- function(x, stat = "var", std = TRUE, threshold = 30, plot = TRUE, fast 
 #'
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data(gpm_events)
 #' event_dates <- format(gpm_events[, unique(time)], "%d-%m-%Y")
 #' gpm_events_brick <- dt.to.brick(gpm_events, var_name = "prcp")
@@ -173,7 +173,7 @@ csas <- function(x, stat = "var", std = TRUE, plot = TRUE, threshold = 30, ...){
   no_cores <- as.numeric(Sys.getenv('NUMBER_OF_PROCESSORS')) - 1
   if(no_cores < 1 | is.na(no_cores))(no_cores <- 1)
   cluster = makeCluster(no_cores, type = "SOCK")
-  registerDoSNOW(cluster)
+  registerDoParallel(cluster)
 
   if (max_agg_scale != 0 & ncells > 2 * threshold){ # check for adequate time series length
     no_layer <- nlayers(x)

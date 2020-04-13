@@ -51,7 +51,7 @@ If \code{plot = TRUE}, the \code{csa} returns a list containing:
 The function \code{csa} computes (and by default plots) the aggregation curve of a given statistic in a single dimension, e.g., time.
 }
 \examples{
-\dontrun{
+\donttest{
 csa(rnorm(1000), wn = TRUE)
 data(gpm_nl, knmi_nl, rdr_nl, ncep_nl, cnrm_nl, gpm_events)
 csa(knmi_nl$prcp, threshold = 10, fast = TRUE)
