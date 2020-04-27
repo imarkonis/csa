@@ -12,7 +12,7 @@
 #' @return The CSA plot as a ggplot object.
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' aa <- rnorm(1000)
 #' csa_aa <- csa(aa, plot = FALSE)
 #' csa.plot(csa_aa)
@@ -75,7 +75,7 @@ csa.plot <- function(x, log_x = TRUE, log_y = TRUE, smooth = FALSE, wn = FALSE){
 #' @return The CSA plot as a ggplot object.
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' aa <- rnorm(1000)
 #' csa_aa <- data.frame(csa(aa, plot = FALSE), variable = 'wn')
 #' bb <- as.numeric(arima.sim(n = 1000, list(ar = c(0.8897, -0.4858), ma = c(-0.2279, 0.2488))))

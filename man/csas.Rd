@@ -41,7 +41,7 @@ If \code{plot = TRUE}, the \code{csa} returns a list containing:
 The function \code{csa} computes (and by default plots) the aggregation curve of a given statistic in two dimensions, e.g., space.
 }
 \examples{
-\dontrun{
+\donttest{
 data(gpm_events)
 event_dates <- format(gpm_events[, unique(time)], "\%d-\%m-\%Y")
 gpm_events_brick <- dt.to.brick(gpm_events, var_name = "prcp")
