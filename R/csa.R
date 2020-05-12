@@ -23,6 +23,7 @@
 #' @param threshold numeric. Sample size of the time series at the last aggregated scale.
 #' @param plot logical. If TRUE (the default) the CSA plot is printed.
 #' @param fast logical. If TRUE the CSA plot is estimated only in logarithmic scale; 1, 2, 3, ... , 10, 20, 30, ... , 100, 200, 300 etc.
+#' @param chk logical. If TRUE the number of cores is limited to 2.
 #' @param ... log_x and log_y (default TRUE) for setting the axes of the CSA plot to logarithmic scale. The argument wn (default FALSE) is used to plot a line presenting the standardized variance of the white noise process. Therefore, it should be used only with stat = "var" and std = T.
 #' @return
 #' If \code{plot = TRUE}, the \code{csa} returns a list containing:
@@ -56,7 +57,7 @@
 #' }
 #' @references Markonis et al., A cross-scale analysis framework for model/data comparison and integration, Geoscientific Model Development, Submitted.
 
-csa  <- function(x, stat = "var", std = TRUE, threshold = 30, plot = TRUE, fast = FALSE, ...) {
+csa  <- function(x, stat = "var", std = TRUE, threshold = 30, plot = TRUE, fast = FALSE, chk = FALSE, ...) {
   if (!is.numeric(x)) stop ("x should be numeric.")
   if (!is.vector(x)) stop ("x should be vector.")
   '%!in%' <- function(x, y)!('%in%'(x, y)) # keep function inside for the 'parallel' package
@@ -72,7 +73,15 @@ csa  <- function(x, stat = "var", std = TRUE, threshold = 30, plot = TRUE, fast 
     timescales <- timescales[timescales <= max_agg_scale]
   }
   # Parallel computing
-  no_cores <- as.numeric(Sys.getenv('NUMBER_OF_PROCESSORS')) - 1
+
+  if (chk == TRUE) {
+    # use 2 cores in CRAN/Travis/AppVeyor
+    no_cores <- 2L
+  } else {
+    # use all cores in devtools::test()
+    no_cores <- parallel::detectCores() -1
+  }
+
   if(no_cores < 1 | is.na(no_cores))(no_cores <- 1)
   cluster = makeCluster(no_cores, type = "PSOCK")
   registerDoParallel(cluster)
@@ -134,6 +143,7 @@ csa  <- function(x, stat = "var", std = TRUE, threshold = 30, plot = TRUE, fast 
 #' @param std logical. If TRUE (the default) the CSA plot is standardized to unit, i.e., zero mean and unit variance in the original time scale.
 #' @param threshold numeric. Sample size of the time series at the last aggregated scale.
 #' @param plot logical. If TRUE (the default) the CSA plot is printed
+#' @param chk logical. If TRUE the number of cores is limited to 2.
 #' @param ... log_x and log_y (default TRUE) for setting the axes of the CSA  plot to logarithmic scale. The argument wn (default FALSE) is used to plot a line presenting the standardized variance of the white noise process. Therefore, it should be used only with stat = "var" and std = T.
 #'
 #' @return
@@ -160,7 +170,7 @@ csa  <- function(x, stat = "var", std = TRUE, threshold = 30, plot = TRUE, fast 
 #' }
 #' @references Markonis et al., A cross-scale analysis framework for model/data comparison and integration, Geoscientific Model Development, Submitted.
 
-csas <- function(x, stat = "var", std = TRUE, plot = TRUE, threshold = 30, ...){
+csas <- function(x, stat = "var", std = TRUE, plot = TRUE, threshold = 30, chk = FALSE, ...){
   '%!in%' <- function(x, y)!('%in%'(x, y)) # keep function inside for the 'parallel' package
   if (stat %!in% c("sd", "var", "skew", "kurt", "cv", "l2", "t2", "t3", "t4"))
     stop("Error: Invalid stat. Select one of sd, var, skew, kurt, cv, l2, t2, t3, t4.")
@@ -170,7 +180,15 @@ csas <- function(x, stat = "var", std = TRUE, plot = TRUE, threshold = 30, ...){
   x_agg <- list()
 
   # Parallel computing
-  no_cores <- as.numeric(Sys.getenv('NUMBER_OF_PROCESSORS')) - 1
+
+  if (chk == TRUE) {
+    # use 2 cores in CRAN/Travis/AppVeyor
+    no_cores <- 2L
+  } else {
+    # use all cores in devtools::test()
+    no_cores <- parallel::detectCores() -1
+  }
+
   if(no_cores < 1 | is.na(no_cores))(no_cores <- 1)
   cluster = makeCluster(no_cores, type = "PSOCK")
   registerDoParallel(cluster)
