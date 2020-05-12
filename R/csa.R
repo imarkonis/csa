@@ -72,7 +72,17 @@ csa  <- function(x, stat = "var", std = TRUE, threshold = 30, plot = TRUE, fast 
     timescales <- timescales[timescales <= max_agg_scale]
   }
   # Parallel computing
-  no_cores <- as.numeric(Sys.getenv('NUMBER_OF_PROCESSORS')) - 1
+  chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_")
+
+  if (chk == TRUE) {
+    # use 2 cores in CRAN/Travis/AppVeyor
+    no_cores <- 2L
+  } else {
+    # use all cores in devtools::test()
+    no_cores <- parallel::detectCores() -1
+  }
+
+  #no_cores <- as.numeric(Sys.getenv('NUMBER_OF_PROCESSORS')) - 1
   if(no_cores < 1 | is.na(no_cores))(no_cores <- 1)
   cluster = makeCluster(no_cores, type = "PSOCK")
   registerDoParallel(cluster)
@@ -170,7 +180,17 @@ csas <- function(x, stat = "var", std = TRUE, plot = TRUE, threshold = 30, ...){
   x_agg <- list()
 
   # Parallel computing
-  no_cores <- as.numeric(Sys.getenv('NUMBER_OF_PROCESSORS')) - 1
+  chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_")
+
+  if (chk == TRUE) {
+    # use 2 cores in CRAN/Travis/AppVeyor
+    no_cores <- 2L
+  } else {
+    # use all cores in devtools::test()
+    no_cores <- parallel::detectCores() -1
+  }
+
+  #no_cores <- as.numeric(Sys.getenv('NUMBER_OF_PROCESSORS')) - 1
   if(no_cores < 1 | is.na(no_cores))(no_cores <- 1)
   cluster = makeCluster(no_cores, type = "PSOCK")
   registerDoParallel(cluster)
