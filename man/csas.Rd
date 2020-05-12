@@ -4,7 +4,15 @@
 \alias{csas}
 \title{Estimate and print the spatial CSA plot}
 \usage{
-csas(x, stat = "var", std = TRUE, plot = TRUE, threshold = 30, ...)
+csas(
+  x,
+  stat = "var",
+  std = TRUE,
+  plot = TRUE,
+  threshold = 30,
+  chk = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{A raster or brick object.}
@@ -26,6 +34,8 @@ csas(x, stat = "var", std = TRUE, plot = TRUE, threshold = 30, ...)
 \item{plot}{logical. If TRUE (the default) the CSA plot is printed}
 
 \item{threshold}{numeric. Sample size of the time series at the last aggregated scale.}
+
+\item{chk}{logical. If TRUE the number of cores is limited to 2.}
 
 \item{...}{log_x and log_y (default TRUE) for setting the axes of the CSA  plot to logarithmic scale. The argument wn (default FALSE) is used to plot a line presenting the standardized variance of the white noise process. Therefore, it should be used only with stat = "var" and std = T.}
 }
