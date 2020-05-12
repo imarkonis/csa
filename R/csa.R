@@ -74,7 +74,7 @@ csa  <- function(x, stat = "var", std = TRUE, threshold = 30, plot = TRUE, fast 
   # Parallel computing
   no_cores <- as.numeric(Sys.getenv('NUMBER_OF_PROCESSORS')) - 1
   if(no_cores < 1 | is.na(no_cores))(no_cores <- 1)
-  cluster = makeCluster(no_cores, type = "SOCK")
+  cluster = makeCluster(no_cores, type = "PSOCK")
   registerDoParallel(cluster)
 
   if (max_agg_scale != 0 & nna > 2 * threshold){ # check for adequate time series length
@@ -172,7 +172,7 @@ csas <- function(x, stat = "var", std = TRUE, plot = TRUE, threshold = 30, ...){
   # Parallel computing
   no_cores <- as.numeric(Sys.getenv('NUMBER_OF_PROCESSORS')) - 1
   if(no_cores < 1 | is.na(no_cores))(no_cores <- 1)
-  cluster = makeCluster(no_cores, type = "SOCK")
+  cluster = makeCluster(no_cores, type = "PSOCK")
   registerDoParallel(cluster)
 
   if (max_agg_scale != 0 & ncells > 2 * threshold){ # check for adequate time series length
