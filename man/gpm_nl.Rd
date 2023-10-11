@@ -4,7 +4,9 @@
 \name{gpm_nl}
 \alias{gpm_nl}
 \title{Satellite data (GPM-IMERG)}
-\format{An object of class \code{data.table} (inherits from \code{data.frame}) with 1526 rows and 2 columns.}
+\format{
+An object of class \code{data.table} (inherits from \code{data.frame}) with 1526 rows and 2 columns.
+}
 \source{
 \href{https://climexp.knmi.nl/select.cgi?id=312456c83e660703df1bfea9ba4fba50&field=imerg_daily}{KNMI explorer}
 }

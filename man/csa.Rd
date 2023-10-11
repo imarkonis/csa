@@ -54,17 +54,18 @@ If \code{plot = TRUE}, the \code{csa} returns a list containing:
 The function \code{csa} computes (and by default plots) the aggregation curve of a given statistic in a single dimension, e.g., time.
 }
 \examples{
-\donttest{
+\dontrun{
 csa(rnorm(1000), wn = TRUE)
 data(gpm_nl, knmi_nl, rdr_nl, ncep_nl, cnrm_nl, gpm_events)
-csa(knmi_nl$prcp, threshold = 10, fast = TRUE)
+csa(knmi_nl$prcp, threshold = 10, fast = TRUE, chk = TRUE)
 
-csa(gpm_nl$prcp, stat = "skew", std = FALSE, log_x = FALSE, log_y = FALSE, smooth = TRUE)
+csa(gpm_nl$prcp, stat = "skew", std = FALSE, log_x = FALSE, log_y = FALSE,
+smooth = TRUE, chk = TRUE)
 
 gpm_skew <- csa(gpm_nl$prcp, stat = "skew", std = FALSE, log_x = FALSE, log_y = FALSE,
-smooth = TRUE, plot = FALSE)
+smooth = TRUE, plot = FALSE, chk = TRUE)
 rdr_skew <- csa(rdr_nl$prcp, stat = "skew", std = FALSE, log_x = FALSE, log_y = FALSE,
-smooth = TRUE, plot = FALSE)
+smooth = TRUE, plot = FALSE, chk = TRUE)
 csa.multiplot(rbind(data.frame(gpm_skew, dataset = "gpm"), data.frame(rdr_skew,
 dataset = "rdr")), log_x = FALSE, log_y = FALSE, smooth = TRUE)
 

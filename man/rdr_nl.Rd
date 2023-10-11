@@ -4,7 +4,9 @@
 \name{rdr_nl}
 \alias{rdr_nl}
 \title{Radar data (KNMI)}
-\format{An object of class \code{data.table} (inherits from \code{data.frame}) with 1472 rows and 2 columns.}
+\format{
+An object of class \code{data.table} (inherits from \code{data.frame}) with 1472 rows and 2 columns.
+}
 \source{
 \href{https://climexp.knmi.nl/select.cgi?id=312456c83e660703df1bfea9ba4fba50&field=knmi_radar_daily}{KNMI explorer}
 }

@@ -51,15 +51,15 @@ If \code{plot = TRUE}, the \code{csa} returns a list containing:
 The function \code{csa} computes (and by default plots) the aggregation curve of a given statistic in two dimensions, e.g., space.
 }
 \examples{
-\donttest{
+\dontrun{
 data(gpm_events)
 event_dates <- format(gpm_events[, unique(time)], "\%d-\%m-\%Y")
 gpm_events_brick <- dt.to.brick(gpm_events, var_name = "prcp")
 plot(gpm_events_brick, col = rev(colorspace::sequential_hcl(40)),
      main = event_dates)
-csas(gpm_events_brick)
+csas(gpm_events_brick, chk = TRUE)
 
-gpm_sp_scale <- csas(gpm_events_brick, plot = FALSE)
+gpm_sp_scale <- csas(gpm_events_brick, plot = FALSE, chk = TRUE)
 gpm_sp_scale[, variable := factor(variable, labels = event_dates)]
 csa.multiplot(gpm_sp_scale, smooth = TRUE, log_x = FALSE, log_y = FALSE)
 }

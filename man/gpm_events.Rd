@@ -4,7 +4,9 @@
 \name{gpm_events}
 \alias{gpm_events}
 \title{GPM-IMERG precipitation events over 10 mm/day}
-\format{An object of class \code{data.table} (inherits from \code{data.frame}) with 6612 rows and 6 columns.}
+\format{
+An object of class \code{data.table} (inherits from \code{data.frame}) with 6612 rows and 6 columns.
+}
 \source{
 \href{https://climexp.knmi.nl/select.cgi?id=312456c83e660703df1bfea9ba4fba50&field=imerg_daily}{KNMI explorer}
 }
