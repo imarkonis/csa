@@ -4,7 +4,9 @@
 \name{knmi_nl}
 \alias{knmi_nl}
 \title{Station data (KNMI)}
-\format{An object of class \code{data.table} (inherits from \code{data.frame}) with 24592 rows and 2 columns.}
+\format{
+An object of class \code{data.table} (inherits from \code{data.frame}) with 24592 rows and 2 columns.
+}
 \source{
 \href{https://climexp.knmi.nl/PhomNL.cgi?id=312456c83e660703df1bfea9ba4fba50}{KNMI explorer}
 }

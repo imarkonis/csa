@@ -1,6 +1,6 @@
 Package: csa
 Title: A Cross-Scale Analysis Tool for Model-Observation Visualization and Integration
-Version: 0.7.0
+Version: 0.7.1
 Authors@R: c(
   person("Yannis", "Markonis", email = "imarkonis@gmail.com", role = c("aut", "cre")),
   person("Christoforos", "Pappas", email = "christoforos.pappas@umontreal.ca", role = c("aut")),
@@ -16,7 +16,7 @@ Encoding: UTF-8
 LazyData: true
 URL: http://github.com/imarkonis/csa
 BugReports: http://github.com/imarkonis/csa/issues
-RoxygenNote: 7.0.2
+RoxygenNote: 7.2.3
 Suggests: 
     testthat (>= 2.1.0),
     colorspace

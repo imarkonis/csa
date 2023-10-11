@@ -29,9 +29,9 @@ Function for plotting multiple CSA curves in a single plot.
 \examples{
 \donttest{
 aa <- rnorm(1000)
-csa_aa <- data.frame(csa(aa, plot = FALSE), variable = 'wn')
+csa_aa <- data.frame(csa(aa, plot = FALSE, chk = TRUE), variable = 'wn')
 bb <- as.numeric(arima.sim(n = 1000, list(ar = c(0.8897, -0.4858), ma = c(-0.2279, 0.2488))))
-csa_bb <- data.frame(csa(bb, plot = FALSE), variable = 'arma(2, 2)')
+csa_bb <- data.frame(csa(bb, plot = FALSE, chk = TRUE), variable = 'arma(2, 2)')
 csa.multiplot(rbind(csa_aa, csa_bb), wn = TRUE)
 csa.multiplot(rbind(csa_aa, csa_bb), wn = TRUE, smooth = TRUE)
 }
