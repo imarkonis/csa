@@ -35,7 +35,7 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' csa(rnorm(1000), wn = TRUE)
+#' csa(rnorm(1000), wn = TRUE, chk = TRUE)
 #' data(gpm_nl, knmi_nl, rdr_nl, ncep_nl, cnrm_nl, gpm_events)
 #' csa(knmi_nl$prcp, threshold = 10, fast = TRUE, chk = TRUE)
 #'
@@ -49,11 +49,16 @@
 #' csa.multiplot(rbind(data.frame(gpm_skew, dataset = "gpm"), data.frame(rdr_skew,
 #' dataset = "rdr")), log_x = FALSE, log_y = FALSE, smooth = TRUE)
 #'
-#' set_1 <- data.frame(csa(gpm_nl$prcp, plot = FALSE, fast = TRUE), dataset = "gpm")
-#' set_2 <- data.frame(csa(rdr_nl$prcp, plot = FALSE, fast = TRUE), dataset = "radar")
-#' set_3 <- data.frame(csa(knmi_nl$prcp, plot = FALSE, fast = TRUE), dataset = "station")
-#' set_4 <- data.frame(csa(ncep_nl$prcp, plot = FALSE, fast = TRUE), dataset = "ncep")
-#' set_5 <- data.frame(csa(cnrm_nl$prcp, plot = FALSE, fast = TRUE), dataset = "cnrm")
+#' set_1 <- data.frame(csa(gpm_nl$prcp, plot = FALSE, fast = TRUE, chk = TRUE),
+#' dataset = "gpm")
+#' set_2 <- data.frame(csa(rdr_nl$prcp, plot = FALSE, fast = TRUE, chk = TRUE),
+#' dataset = "radar")
+#' set_3 <- data.frame(csa(knmi_nl$prcp, plot = FALSE, fast = TRUE, chk = TRUE),
+#' dataset = "station")
+#' set_4 <- data.frame(csa(ncep_nl$prcp, plot = FALSE, fast = TRUE, chk = TRUE),
+#' dataset = "ncep")
+#' set_5 <- data.frame(csa(cnrm_nl$prcp, plot = FALSE, fast = TRUE, chk = TRUE),
+#' dataset = "cnrm")
 #' csa.multiplot(rbind(set_1, set_2, set_3, set_4, set_5))
 #' }
 #' @references Markonis et al., A cross-scale analysis framework for model/data comparison and integration, Geoscientific Model Development, Submitted.
